@@ -14,16 +14,18 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AddIcon from '@material-ui/icons/Add'
 import { useCollection } from 'react-firebase-hooks/firestore'
-import { db } from '../firebase'
+import { auth, db } from '../firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 const Sidebar = () => {
-  const [channels, loading, errors] = useCollection(db.collection('room'))
+  const [channels] = useCollection(db.collection('room'))
+  const [user] = useAuthState(auth)
 
   return (
     <SidebarContainer>
       <SidebarHeader>
         <SidebarInfo>
-          <h2>Aakash Soni</h2>
+          <h2>{user.displayName}</h2>
           <h3>
             <FiberManualRecordIcon />
             honey
